@@ -1,0 +1,24 @@
+<header class="header">
+  <div class="header__inner">
+    <div class="header__left-side">
+      <div class="header__toggle-navigation">
+        <div class="header__toggle-navigation-icon"></div>
+      </div>
+    </div>
+
+    <a class="header__logo" href="{{ shop.secure_url }}">
+      <img src="{{ 'logo.svg' | asset_url }}" class="header__logo-image" />
+    </a>
+
+    {% render 'search-bar' %}
+
+    <div class="header__right-side">
+      <a class="header__cart" href="{{ routes.cart_url }}">
+        <div class="header__cart-icon"></div>
+        {% if cart.item_count > 0 %}
+          <div class="header__cart-amount">{{ cart.item_count }}</div>
+        {% endif %}
+      </a>
+    </div>
+  </div>
+</header> 

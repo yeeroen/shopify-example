@@ -1,0 +1,36 @@
+<div class="product-section">
+    <h2 class="product-section__title">{{ product.title }}</h2>
+    <div class="product-section__media">
+        <div
+            class="fotorama"
+            data-nav="thumbs"
+            data-loop="true"
+            data-fit="cover"
+            data-ratio="1/1"
+            data-thumbwidth="80"
+            data-thumbheight="80"
+            data-margin="10"
+        >
+            {% for image in product.images %}
+                {{ image | img_url: '2048x' | img_tag }}
+            {% endfor %}
+        </div>
+    </div>
+    <div class="product-information">
+        <h2 class="product-information__price">{{ product.price | money }}</h2>
+        <p>{{ product.description }}</p>
+        {%- if product.available -%}
+            {%- form 'product', product -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                {{ form | payment_terms }}
+                <button class="product-information__button product-information__button--cart">
+                    In winkelwagen
+                </button>
+            {%- endform -%}
+        {%- else -%}
+            <button class="product-information__button product-information__button--sold-out">
+                Uitverkocht
+            </button>            
+        {%- endif -%}
+    </div>
+</div>

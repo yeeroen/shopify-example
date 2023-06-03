@@ -1,0 +1,36 @@
+<div class="collection-section">
+    {% section 'filters' %}
+    <div class="open-filters-menu">
+        Toon de filters
+    </div>
+    <div class="collection">
+        <h2 class="collection__title">{{ collection.title }}</h2>
+        <p class="collection__description">{{ collection.description }}</p>
+        {% paginate collection.products by 12 %}
+        <div class="collection__items">
+            {% for product in collection.products %}
+            <a href="{{ product.url }}" class="product">
+                <div class="product__image-wrapper">
+                    <img class="product__image" src="{{ product.featured_image | img_url: 'medium' }}" />
+                </div>
+                <div class="product__content">
+                    <p class="product__title">{{ product.title }}</p>
+                    <div class="product__footer">
+                        <div class="product__price-wrapper">
+                            <p class="product__price">{{ product.price | money }}</p>
+                        </div>
+                        {%- form 'product', product -%}
+                        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                        {{ form | payment_terms }}
+                        <button class="product__add-to-cart"></button>
+                        {%- endform -%}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="pagination">
+            {{ paginate | default_pagination: next: '>', previous: '<' }} </div>
+                {% endpaginate %}
+        </div>
+    </div>

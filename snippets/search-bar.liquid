@@ -1,0 +1,12 @@
+<div class="search-section">
+    <form class="search-bar" action="{{ routes.search_url }}">
+        <input type="hidden" name="type" value="product" />
+        <input type="text"
+        class="search-bar__input"
+        placeholder="Zoek in de winkel"
+        name="q"
+        value="{{ search.terms | escape }}"
+        >
+        <button class="search-bar__button"></button>
+    </form>
+</div> 

@@ -1,0 +1,13 @@
+<div class="navigation">
+  <ul class="navigation__list">
+    {% for link in linklists.main-menu.links -%}
+      <li class="navigation__item">
+        <a href="{{ link.url }}"">
+          <p class="navigation__item-text">
+            {{ link.title }}
+          </p>
+        </a>
+      </li>
+    {%- endfor %}
+  </ul>
+</div>

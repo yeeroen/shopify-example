@@ -1,0 +1,51 @@
+
+{%- if section.blocks.size > 0 -%}
+    <h2 class="banner-group-title">{{ section.settings.title }}</h2>
+    <div class="banner-group">
+        {%- for banner in section.blocks -%}
+            <div class="small-banner">
+                <a href="{{ banner.settings.url }}" class="small-banner__image-wrapper">
+                    <img src="{{ banner.settings.image | img_url: '2048x' }}" class="small-banner__image" /> 
+                </a>
+                <a class="small-banner__text" href="{{ banner.settings.url }}">{{ banner.settings.text }}</a>
+            </div>
+        {%- endfor -%}
+    </div>
+{%- endif -%}
+
+{% schema %}
+    {
+        "name": "Banner group",
+        "max_blocks": 4,
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            }
+        ],
+        "blocks": [
+            {
+                "name": "Banner",
+                "type": "banner",
+                "settings": [
+                    {
+                        "type": "image_picker",
+                        "id": "image",
+                        "label": "Image"
+                    },
+                    {
+                        "type": "text",
+                        "id": "text",
+                        "label": "Text"
+                    },
+                    {
+                        "type": "url",
+                        "id": "url",
+                        "label": "Link"
+                    }
+                ] 
+            }
+        ]
+    }
+{% endschema %}

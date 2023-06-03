@@ -1,0 +1,33 @@
+<h2 class="highlighted-collections-title">{{ section.settings.title }}</h2>
+<div class="highlighted-collections-list">
+    {% for collection in section.settings.collection_list %}
+        <a href="{{ collection.url }}" class="collection-card">
+            <div class="collection-card__image-wrapper">
+                <img class="collection-card__image" src="{{ collection.featured_image | img_url: 'medium' }}" />
+            </div>
+            <div class="collection-card__content">   
+                <p class="collection-card__title">{{ collection.title }}</p>
+            </div>
+        </a>
+    {% endfor %}
+</div>
+
+{% schema %}
+    {
+        "name": "Highlighted collections",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title",
+                "default": "Highlighted collections"
+            },
+            {
+                "type": "collection_list",
+                "id": "collection_list",
+                "label": "Collections",
+                "limit": 4
+            }
+        ]
+    }
+{% endschema %}

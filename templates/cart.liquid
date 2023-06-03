@@ -1,0 +1,50 @@
+<div class="cart-page">
+    <h2 class="cart-page__title">Winkelwagen</h2>
+    {%- if cart.item_count > 0 -%}
+        <form action="{{ routes.cart_url }}" method="post">
+            <div class="cart-page__items">
+                {% for item in cart.items %}
+                    <div class="cart-item">
+                        <div class="cart-item__image-wrapper">
+                            <img src="{{ item.image | img_url: '2048x' }}" class="cart-item__image" />
+                        </div>
+                        <div class="cart-item__content">
+                            <div class="cart-item__information">
+                                <p class="cart-item__title">{{ item.product.title }}</p>
+                                <p class="cart-item__price">{{ item.final_line_price | money }}</p>
+                            </div>
+                            <div class="cart-item__controls">
+                                <input type="number" name="updates[]" class="cart-item__amount-input" value="{{ item.quantity }}" />
+                                <input class="cart-item__update-cart" class="hidden" type="submit" value="Update cart">
+                                <a class="cart-item__remove-from-cart" href="{{ item.url_to_remove }}">Remove</a>
+                            </div>
+                        </div>
+                    </div>            
+                {% endfor %}
+            </div>
+            <div class="cart-page-summary">
+                <h2 class="cart-page-summary__title">Samenvatting</h2>
+                <div class="cart-page-summary__products-price">
+                    <p class="cart-page-summary__products-price-label">
+                        Artikelen ({{ cart.item_count }})
+                    </p>
+                    <p class="cart-page-summary__products-price-value">
+                        {{ cart.items_subtotal_price | money }}
+                    </p>
+                </div>
+                <div class="cart-page-summary__total">
+                    <p class="cart-page-summary__total-label">
+                        Totaal
+                    </p>
+                    <p class="cart-page-summary__total-value">
+                        {{ cart.total_price | money }}
+                    </p>
+                </div>
+                <input class="cart-page-summary__button" type="submit" name="checkout" value="Verder met bestellen">
+            </div>
+        </form>
+    {%- else -%}
+        <p class="cart-page__text">U heeft geen product(en) in uw winkelwagen.</p>
+        <a class="cart-page__button" href="{{ routes.root_url }}">Verder met winkelen</a>
+    {%- endif -%}
+</div>

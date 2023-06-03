@@ -1,0 +1,76 @@
+<div class="footer" data-column-count="{{ section.blocks.size }}">
+    {%- if section.blocks.size > 0 -%}
+        {%- for block in section.blocks -%}
+            <div class="footer__item">
+                {% case block.type %}
+                    {% when 'link_list' %}
+                        <h2 class="footer__item-title">{{ block.settings.list.title }}</h2>
+                        <ul class="footer__item-list">
+                            {% for link in block.settings.list.links %}
+                                <li class="footer__item-link">
+                                    <a href="{{ link.url }}">
+                                        {{ link.title }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% when 'text' %}
+                        <h2 class="footer__item-title">{{ block.settings.title }}</h2>
+                        <p class="footer__item-text">{{ block.settings.text }}</p>
+                {% endcase %}
+            </div>
+        {%- endfor -%}
+    {%- endif -%}
+</div>
+
+{% schema %}
+    {
+        "name": "Footer",
+        "max_blocks": 4,
+        "blocks": [
+            {
+                "name": "Links",
+                "type": "link_list",
+                "settings": [
+                    {
+                        "type": "link_list",
+                        "id": "list",
+                        "default": "footer",
+                        "label": "List"
+                    }
+                ] 
+            },
+            {
+                "name": "text",
+                "type": "text",
+                "settings": [
+                    {
+                        "type": "text",
+                        "id": "title",
+                        "default": "Title",
+                        "label": "Title"
+                    },
+                    {
+                        "type": "textarea",
+                        "id": "text",
+                        "default": "Text",
+                        "label": "Text"
+                    }
+                ]
+            }
+        ],
+        "default": {
+            "blocks": [
+                {
+                    "type": "link_list"
+                },
+                {
+                    "type": "link_list"
+                },
+                {
+                    "type": "text"
+                }
+            ]
+        }
+    }
+{% endschema %}

@@ -1,0 +1,43 @@
+<h2 class="highlighted-products-title">{{ section.settings.title }}</h2>
+<div class="highlighted-products-list">
+    {% for product in section.settings.product_list %}
+    <a href="{{ product.url }}" class="product">
+        <div class="product__image-wrapper">
+            <img class="product__image" src="{{ product.featured_image | img_url: 'medium' }}" />
+        </div>
+        <div class="product__content">
+            <p class="product__title">{{ product.title }}</p>
+            <div class="product__footer">
+                <div class="product__price-wrapper">
+                    <p class="product__price">{{ product.price | money }}</p>
+                </div>
+                {%- form 'product', product -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                {{ form | payment_terms }}
+                <button class="product__add-to-cart"></button>
+                {%- endform -%}
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+{% schema %}
+{
+"name": "Highlighted products",
+"settings": [
+{
+"type": "text",
+"id": "title",
+"label": "Title",
+"default": "Highlighted products"
+},
+{
+"type": "product_list",
+"id": "product_list",
+"label": "Products",
+"limit": 4
+}
+]
+}
+{% endschema %}

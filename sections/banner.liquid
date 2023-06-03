@@ -1,0 +1,23 @@
+<section class="banner">
+    <a href="{{ section.settings.url }}" class="banner__wrapper">
+        {{ section.settings.image | img_url: '2048x' | img_tag }}
+    </a>
+</section>
+
+{% schema %}
+    {
+        "name": "Banner",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+            },
+            {
+                "type": "url",
+                "id": "url",
+                "label": "Link"
+            }
+        ]
+    }
+{% endschema %}

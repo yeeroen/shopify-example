@@ -1,0 +1,80 @@
+class Page {
+    constructor() {
+        this.navigationIsOpen = false;
+        this.filterMenuIsOpen = false;
+
+        this.handleNavigation();
+        this.handleCartQuantityChange();
+        this.handleFilterChanges();
+        this.handleFilterMenu();
+    }
+
+    handleNavigation() {
+        const navigationToggleButton = document.querySelector('.header__toggle-navigation');
+        const mobileNavigation = document.querySelector('.header + .search-section + .navigation');
+
+        console.log(navigationToggleButton, mobileNavigation);
+
+        navigationToggleButton.addEventListener('click', () => {
+
+            if(!this.navigationIsOpen) {
+                this.navigationIsOpen = true;
+                navigationToggleButton.classList.add('header__toggle-navigation--show');
+                mobileNavigation.classList.add('navigation--show');
+                return;
+            }
+
+            this.navigationIsOpen = false;
+            navigationToggleButton.classList.remove('header__toggle-navigation--show');
+            mobileNavigation.classList.remove('navigation--show');
+        });
+    }
+
+    handleCartQuantityChange() {
+        document.querySelectorAll('.cart-item__amount-input').forEach(input => {
+            input.addEventListener('change', () => {
+                input.parentElement.querySelector('.cart-item__update-cart').click();
+            });
+        });
+    }
+
+    handleFilterChanges () {
+        document.querySelectorAll('.filters').forEach(form => {
+            const inputs = form.querySelectorAll('input');
+            
+            inputs.forEach(input => {
+                input.addEventListener('change', () => {
+                    form.submit();
+                });
+            });
+        });
+    }
+
+    handleFilterMenu() {
+        const filterElement = document.querySelector('#shopify-section-filters');
+        const openFilterMenu = document.querySelector('.open-filters-menu');
+        const closeFilterMenu = document.querySelector('.filters-header__close-icon');
+
+        if(openFilterMenu && closeFilterMenu) {
+            openFilterMenu.addEventListener('click', () => {
+                if(!this.filterMenuIsOpen) {
+                    this.filterMenuIsOpen = true;
+                    filterElement.classList.add('open');
+                }
+            })
+
+            closeFilterMenu.addEventListener('click', () => {
+                if(this.filterMenuIsOpen) {
+                    this.filterMenuIsOpen = false;
+                    filterElement.classList.remove('open');
+                }
+            })
+        }
+    }
+}
+
+window.classPage = undefined;
+
+document.addEventListener('DOMContentLoaded', () => {
+    window.classPage = new Page();
+});

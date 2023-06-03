@@ -1,0 +1,29 @@
+<div class="search">
+    <h2 class="search__title">Zoekresultaten</h2>
+    <p class="search__text">De zoekopdracht '{{ search.terms }}' geeft {{ search.results_count }} resultaten.</p>
+    {% if search.results_count == 0 %}
+    <a class="search__back-button" href="{{ routes.root_url }}">Verder met winkelen</a>
+    {% endif %}
+    <div class="search__results">
+        {% for product in search.results %}
+        <a href="{{ product.url }}" class="product">
+            <div class="product__image-wrapper">
+                <img class="product__image" src="{{ product.featured_image | img_url: 'medium' }}" />
+            </div>
+            <div class="product__content">
+                <p class="product__title">{{ product.title }}</p>
+                <div class="product__footer">
+                    <div class="product__price-wrapper">
+                        <p class="product__price">{{ product.price | money }}</p>
+                    </div>
+                    {%- form 'product', product -%}
+                    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" />
+                    {{ form | payment_terms }}
+                    <button class="product__add-to-cart"></button>
+                    {%- endform -%}
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
